@@ -16,3 +16,7 @@ code {
     monospace;
 }
 
+.fullscreen_flex {
+    height: 100vh;
+    display:flex;
+}

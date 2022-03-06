@@ -1,11 +1,7 @@
 import { SocketSingleton } from "SocketSingleton";
 import { secondsToMinutes } from "utils";
 
-export function TimePickerOption({
-  seconds,
-}: {
-  seconds: number;
-}) {
+export function TimePickerOption({ seconds }: { seconds: number }) {
   const socketManager = SocketSingleton.getInstance();
 
   function onPress() {
@@ -15,13 +11,14 @@ export function TimePickerOption({
   // const boxStyle = tailwind('p-8 m-1')
   // boxStyle.color = "blue"
   return (
-    <div className='w-1/2'>
+    <div>
       <button onClick={onPress}>
-        <div className='text-center text-xl'>
+        <div className="w-32 h-32 m-2 flex text-center text-3xl bg-gray-200">
+          <div className="m-auto">
           {secondsToMinutes(seconds)}
+          </div>
         </div>
       </button>
     </div>
   );
 }
-
