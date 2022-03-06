@@ -43,13 +43,12 @@ export function Clock({
   }
 
   return (
-    <div
-      className="cursor-pointer flex items-center justify-center w-full text-8xl"
-      onClick={() => {
-        onPress(state);
-      }}
-    >
-      <div>
+    <div className="flex items-center justify-center w-full text-8xl">
+      <div className="cursor-pointer "
+        onClick={() => {
+          onPress(state);
+        }}
+      >
         {secondsToTimeString(secondsToDisplay())}
       </div>
     </div>

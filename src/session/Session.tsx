@@ -4,6 +4,7 @@ import { io, Socket } from "socket.io-client";
 import { SocketSingleton } from "SocketSingleton";
 import { getDateSeconds, PomodoroState } from "utils";
 import { PomodoroTimer } from "./PomodoroTimer";
+import { Sidebar } from "./Sidebar";
 import { TimePicker } from "./TimePicker";
 // import 'dotenv/config'
 
@@ -53,10 +54,12 @@ export function Session() {
 
   function renderIfReady(): React.ReactElement {
     if (sessionState?.clock.state == PomodoroState.DONE) {
-      return <TimePicker />;
+      return <div id="page-wrap" w-full>
+        <TimePicker />;
+      </div>
     } else if (sessionState) {
       return (
-        <div className="h-full flex-1 justify-evenly">
+        <div className="h-full flex-1 justify-evenly" id="page-wrap">
           <div className="flex-1 justify-center">
             <PomodoroTimer {...sessionState?.clock}></PomodoroTimer>
           </div>
@@ -67,7 +70,15 @@ export function Session() {
 
     return <div>Loading...</div>;
   }
+  if (!sessionState || !sessionState.users) {
+    return <div>Loading...</div>
+  }
 
   console.log(sessionState);
-  return renderIfReady();
+  return (
+    <div id="outer-container">
+      <Sidebar users={sessionState.users}/>
+      {renderIfReady()}
+    </div>
+  );
 }
