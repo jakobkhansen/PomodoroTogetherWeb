@@ -19,17 +19,19 @@ type SessionState =
 export function Session() {
   let location = useLocation();
   const { displayName, sessionName } = location.state as any;
-  const BACKEND_URL: string = process.env.REACT_APP_BACKEND_URL || "";
+  const BACKEND_URL: string = process.env.REACT_APP_BACKEND_URL || "localhost:5000";
   const [sessionState, setSessionState] = useState<SessionState>();
 
   console.log(BACKEND_URL)
-  console.log(sessionState);
+  console.log(sessionState)
+
 
   useEffect(() => {
     const socket = io(BACKEND_URL);
-    console.log(socket);
+    console.log(socket)
     socket.emit("session join", sessionName, displayName);
     socket.on("session update", (sessionState) => {
+      console.log("Hello")
       setSessionState({
         ...sessionState,
         clock: {
