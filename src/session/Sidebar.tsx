@@ -42,7 +42,7 @@ var styles = {
     display: "flex",
   },
   bmOverlay: {
-    background: "rgba(0, 0, 0, 0.3)",
+    background: "rgba(0, 0, 0, 0)",
   },
 };
 
@@ -53,7 +53,6 @@ export function Sidebar({ users }: { users: string[] }) {
         right
         itemListElement="div"
         styles={styles}
-        noOverlay
         outerContainerId={"outer-container"}
         pageWrapId={"page-wrap"}
       >

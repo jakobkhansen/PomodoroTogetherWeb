@@ -71,12 +71,12 @@ export function Session() {
     return <div>Loading...</div>;
   }
   if (!sessionState || !sessionState.users) {
-    return <div>Loading...</div>
+    return <div className="h-screen dark:bg-slate-900 dark:text-white">Loading...</div>
   }
 
   console.log(sessionState);
   return (
-    <div id="outer-container">
+    <div id="outer-container" className="dark:bg-slate-900">
       <Sidebar users={sessionState.users}/>
       {renderIfReady()}
     </div>

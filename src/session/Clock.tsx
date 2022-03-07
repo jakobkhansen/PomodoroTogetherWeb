@@ -43,14 +43,27 @@ export function Clock({
   }
 
   return (
-    <div className="flex items-center justify-center w-full text-8xl">
-      <div className="cursor-pointer "
-        onClick={() => {
-          onPress(state);
-        }}
-      >
-        {secondsToTimeString(secondsToDisplay())}
-      </div>
+    <div className="flex items-center justify-center w-full ">
+      {runningTimerStates.includes(state) && (
+        <div
+          className="cursor-pointer text-8xl dark:text-gray-300"
+          onClick={() => {
+            onPress(state);
+          }}
+        >
+          {secondsToTimeString(secondsToDisplay())}
+        </div>
+      )}
+      {!runningTimerStates.includes(state) && (
+        <div
+          className="cursor-pointer text-8xl text-gray-500 dark:text-gray-500"
+          onClick={() => {
+            onPress(state);
+          }}
+        >
+          {secondsToTimeString(secondsToDisplay())}
+        </div>
+      )}
     </div>
   );
 }
