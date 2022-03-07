@@ -36,10 +36,18 @@ export function Clock({
       timeLeft - (getDateSeconds() - timeOffset - timestamp)
     );
 
-    if (display < 0) {
+    if (display <= 0) {
+      document.title = "Pomodoro Together"
       onFinished();
     }
     return display;
+  }
+
+  if (runningTimerStates.includes(state)) {
+    document.title = "Pomodoro: ▶️ " + secondsToTimeString(secondsToDisplay())
+  } else {
+    document.title = "Pomodoro: ⏸️ " + secondsToTimeString(secondsToDisplay())
+
   }
 
   return (
