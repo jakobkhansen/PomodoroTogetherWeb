@@ -49,7 +49,7 @@ export function HomeInputForm() {
               <div className="mt-4 mb-4">
                 <label
                   htmlFor="sessionName"
-                  className="flex flex-col text-left dark:text-white text-sm font-bold ml-0.5 duration-1000"
+                  className="flex flex-col text-left dark:text-white text-sm font-bold ml-0.5"
                 >
                   Session name
                 </label>

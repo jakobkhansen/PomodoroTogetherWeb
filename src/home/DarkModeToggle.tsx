@@ -11,6 +11,6 @@ export default () => {
   }
 
   return (
-    <DarkModeToggle className="absolute bottom-4 right-4" onChange={onChange} checked={theme === 'dark'} size={80} />
+    <DarkModeToggle speed={3} size={60} className="absolute bottom-4 right-4" onChange={onChange} checked={theme === 'dark'} />
   );
 };

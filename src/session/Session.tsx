@@ -90,7 +90,7 @@ export function Session() {
   }
 
   return (
-    <div id="outer-container" className="dark:bg-slate-900">
+    <div id="outer-container" className="dark:bg-slate-900 duration-300">
       <Sidebar users={sessionState.users} />
       {renderIfReady()}
     </div>
