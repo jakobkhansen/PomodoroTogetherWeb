@@ -23,6 +23,7 @@ This is a WIP app, I will continue to develop this app when I have the time/moti
 * Typescript
 * SocketIO
 * Tailwind
+* Hosted on Heroku
 
 ### Backend
 See [this](https://github.com/jakobkhansen/PomodoroTogetherBackend) repo

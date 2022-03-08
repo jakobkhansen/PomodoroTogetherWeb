@@ -1,11 +1,8 @@
 import { Socket } from "socket.io-client";
 
-export class SocketSingleton {
-  private static instance: SocketSingleton;
+export class SessionSocket {
 
-  constructor(private socket: Socket) {
-    SocketSingleton.instance = this;
-  }
+  constructor(private socket: Socket) {}
 
   public emit(event: string, ...messages: string[]): void {
     console.log(event, ...messages);
@@ -36,7 +33,7 @@ export class SocketSingleton {
     this.socket.emit("session stop");
   }
 
-  static getInstance(): SocketSingleton {
-    return this.instance;
+  public sendLeave() {
+    this.socket.emit("session leave")
   }
 }

@@ -1,10 +1,11 @@
 import DarkModeToggle from "home/DarkModeToggle";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
-import { SocketSingleton } from "SocketSingleton";
+import { SessionSocket } from "SessionSocket";
 import { getDateSeconds, PomodoroState } from "utils";
+import { SocketContext } from "utils/SocketContext";
 import { ThemeContext } from "utils/ThemeContext";
 import { PomodoroTimer } from "./PomodoroTimer";
 import { Sidebar } from "./Sidebar";
@@ -33,18 +34,20 @@ export function Session() {
 
   const displayName = cookie.displayName
 
-  const BACKEND_URL: string =
-    process.env.REACT_APP_BACKEND_URL || "localhost:5000";
   const [sessionState, setSessionState] = useState<SessionState>();
 
-  let socket: Socket;
+  const [socket, setSocket] = useContext(SocketContext)
+
 
   if (!(displayName && sessionName)) {
     navigate("/");
   }
 
+
   useEffect(() => {
-    const socket = new SocketSingleton(io(BACKEND_URL));
+    if (socket === undefined) {
+      return
+    }
 
     socket.emit("session join", sessionName, displayName);
     socket.on("session update", (sessionState) => {
@@ -58,9 +61,11 @@ export function Session() {
     });
 
     return function cleanup() {
-      socket.disconnect();
+      socket.sendLeave()
     };
-  }, []);
+
+  }, [])
+
 
   function renderIfReady(): React.ReactElement {
     if (sessionState?.clock.state == PomodoroState.DONE) {

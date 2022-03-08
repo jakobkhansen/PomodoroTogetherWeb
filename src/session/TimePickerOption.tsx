@@ -1,11 +1,13 @@
-import { SocketSingleton } from "SocketSingleton";
+import { useContext } from "react";
+import { SessionSocket } from "SessionSocket";
 import { secondsToMinutes } from "utils";
+import { SocketContext } from "utils/SocketContext";
 
 export function TimePickerOption({ seconds }: { seconds: number }) {
-  const socketManager = SocketSingleton.getInstance();
+  const [socket, setSocket] = useContext(SocketContext)
 
   function onPress() {
-    socketManager.sendStart(seconds);
+    socket?.sendStart(seconds);
   }
 
   // const boxStyle = tailwind('p-8 m-1')

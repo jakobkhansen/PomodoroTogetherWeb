@@ -1,6 +1,8 @@
+import { useContext } from "react";
 import { Socket } from "socket.io-client";
-import { SocketSingleton } from "SocketSingleton";
+import { SessionSocket } from "SessionSocket";
 import { PomodoroState } from "utils";
+import { SocketContext } from "utils/SocketContext";
 import { Clock } from "./Clock";
 
 type PomodoroTimerProps = {
@@ -11,18 +13,18 @@ type PomodoroTimerProps = {
 };
 
 export function PomodoroTimer({timestamp, timeLeft, timeOffset, state}: PomodoroTimerProps) {
-    const socket = SocketSingleton.getInstance()
+  const [socket, setSocket] = useContext(SocketContext)
 
   function togglePause(state : PomodoroState) {
     if (runningTimerStates.includes(state)) {
-      socket.sendPause()
+      socket?.sendPause()
     } else { 
-      socket.sendUnpause()
+      socket?.sendUnpause()
     }
   }
 
   function stopTimer() {
-    socket.sendStop()
+    socket?.sendStop()
   }
 
 
