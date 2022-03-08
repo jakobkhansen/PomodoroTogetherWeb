@@ -13,8 +13,8 @@ This is a WIP app, I will continue to develop this app when I have the time/moti
 * [ ] Stop timer
 * [ ] Custom session length
 * [x] Timer in tab-title
-* [x] Dark-mode
-* [ ] Hotkeys
+* [x] Dark mode
+* [ ] Hotkeys
 * [ ] Notification sound when timer done
 * [ ] Work/Break distinct timers
 
