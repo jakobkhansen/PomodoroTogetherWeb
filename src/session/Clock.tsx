@@ -37,7 +37,6 @@ export function Clock({
     );
 
     if (display <= 0) {
-      document.title = "Pomodoro Together"
       onFinished();
     }
     return display;

@@ -1,14 +1,17 @@
+import { useState } from "react";
+import { useCookies } from "react-cookie";
 import { Field, Form } from "react-final-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type SubmissionParams = { displayName: string; sessionName: string };
 
 export function HomeInputForm() {
   const navigate = useNavigate();
+  const [cookies, setCookies] = useCookies(["displayName", "sessionName"]);
+
   function onSubmit({ displayName, sessionName }: SubmissionParams) {
-    navigate("/session", {
-      state: { displayName: displayName, sessionName: sessionName },
-    });
+    setCookies("displayName", displayName, {secure: true, path: "/", sameSite: 'none'});
+    navigate(`/session/${sessionName}`);
   }
 
   return (
@@ -25,11 +28,16 @@ export function HomeInputForm() {
                 >
                   Display Name
                 </label>
-                <Field name="displayName" placeholder="Anonymous">
+                <Field
+                  name="displayName"
+                  placeholder="Anonymous"
+                  initialValue={cookies.displayName || ""}
+                >
                   {(props) => {
                     return (
                       <div className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <input className="bg-transparent dark:text-white"
+                        <input
+                          className="bg-transparent dark:text-white"
                           {...props.input}
                           placeholder={props.placeholder}
                         />
@@ -49,18 +57,20 @@ export function HomeInputForm() {
                   name="sessionName"
                   component="input"
                   placeholder="My room"
+                  initialValue={cookies.sessionName}
                 >
                   {(props) => {
                     return (
                       <div className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <input className="bg-transparent dark:text-white"
+                        <input
+                          className="bg-transparent dark:text-white"
                           {...props.input}
                           placeholder={props.placeholder}
                         />
                       </div>
                     );
                   }}
-              </Field>
+                </Field>
               </div>
             </div>
           </div>

@@ -57,8 +57,8 @@ export function Sidebar({ users }: { users: string[] }) {
         pageWrapId={"page-wrap"}
       >
         <h1 className="text-xl text-white">Users in session:</h1>
-        {users.map((user) => (
-          <div className="text-md">{user}</div>
+        {users.map((user, i) => (
+          <div key={i} className="text-md">{user}</div>
         ))}
       </Menu>
     </div>
