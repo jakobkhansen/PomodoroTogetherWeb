@@ -18,6 +18,7 @@ export class SessionSocket {
   }
 
   public sendPause() {
+    console.log("pausing")
     this.socket.emit("session pause");
   }
 

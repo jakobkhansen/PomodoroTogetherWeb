@@ -12,6 +12,7 @@ export function PomodoroTimer({clock} : {clock : ClockState}) {
 
   function togglePause(state : PomodoroState) {
     if (runningTimerStates.includes(state)) {
+      console.log(socket)
       socket?.sendPause()
     } else { 
       socket?.sendUnpause()

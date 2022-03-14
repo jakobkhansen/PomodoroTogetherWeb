@@ -7,20 +7,24 @@ const BACKEND_URL: string =
 
 type ISocketContext = [
   SessionSocket | undefined,
-  React.Dispatch<React.SetStateAction<SessionSocket | undefined>>
+  React.Dispatch<React.SetStateAction<SessionSocket | undefined>>,
+  () => void
 ];
 export const SocketContext = createContext<ISocketContext>([
   undefined,
   () => null,
+  () => null,
 ]);
 
 export const SocketProvider = ({ children }: any) => {
-  const [socket, setSocket] = useState<SessionSocket | undefined>(
-    new SessionSocket(io(BACKEND_URL))
-  );
+  const [socket, setSocket] = useState<SessionSocket | undefined>();
+
+  const createSocket = () => {
+    setSocket(new SessionSocket(io(BACKEND_URL)));
+  };
 
   return (
-    <SocketContext.Provider value={[socket, setSocket]}>
+    <SocketContext.Provider value={[socket, setSocket, createSocket]}>
       {children}
     </SocketContext.Provider>
   );

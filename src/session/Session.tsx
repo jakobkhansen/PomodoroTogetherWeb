@@ -1,47 +1,49 @@
-import DarkModeToggle from "home/DarkModeToggle";
 import React, { useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { io, Socket } from "socket.io-client";
-import { SessionSocket } from "SessionSocket";
+import {
+    useLocation,
+    useNavigate,
+    useParams
+} from "react-router-dom";
 import { getDateSeconds, PomodoroState } from "utils";
+import { SessionState } from "utils/SessionState";
 import { SocketContext } from "utils/SocketContext";
-import { ThemeContext } from "utils/ThemeContext";
 import { PomodoroTimer } from "./PomodoroTimer";
 import { Sidebar } from "./Sidebar";
 import { TimePicker } from "./TimePicker";
-import { SessionState } from "utils/SessionState";
-// import 'dotenv/config'
 
 export function Session() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [cookie, setCookie] = useCookies(['displayName', 'sessionName'])
+  const [cookie, setCookie] = useCookies(["displayName", "sessionName"]);
 
-  const sessionName = useParams().sessionName || ""
-  setCookie('sessionName', sessionName, {secure: true, path : "/", sameSite:'none'})
+  const sessionName = useParams().sessionName || "";
+  setCookie("sessionName", sessionName, {
+    secure: true,
+    path: "/",
+    sameSite: "none",
+  });
 
-  const displayName = cookie.displayName
+  const displayName = cookie.displayName;
 
   const [sessionState, setSessionState] = useState<SessionState>();
 
-  const [socket, setSocket] = useContext(SocketContext)
-
-  console.log(socket)
-
+  const [socket, setSocket, createSocket] = useContext(SocketContext);
 
   if (!(displayName && sessionName)) {
     navigate("/");
   }
 
-
   useEffect(() => {
     if (socket === undefined) {
-      return
+      createSocket();
+      return;
     }
 
-    socket.emit("session join", sessionName, displayName);
-    socket.on("session update", (sessionState) => {
+    socket?.on("connect", () => {
+      socket.emit("session join", sessionName, displayName);
+    });
+    socket?.on("session update", (sessionState) => {
       setSessionState({
         ...sessionState,
         clock: {
@@ -52,11 +54,9 @@ export function Session() {
     });
 
     return function cleanup() {
-      socket.sendLeave()
+      socket?.sendLeave();
     };
-
-  }, [])
-
+  }, [socket]);
 
   function renderIfReady(): React.ReactElement {
     if (sessionState?.clock.state == PomodoroState.DONE) {
