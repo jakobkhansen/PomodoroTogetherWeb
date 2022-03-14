@@ -10,19 +10,8 @@ import { ThemeContext } from "utils/ThemeContext";
 import { PomodoroTimer } from "./PomodoroTimer";
 import { Sidebar } from "./Sidebar";
 import { TimePicker } from "./TimePicker";
+import { SessionState } from "utils/SessionState";
 // import 'dotenv/config'
-
-type SessionState =
-  | undefined
-  | {
-      users: string[];
-      clock: {
-        timestamp: number;
-        timeLeft: number;
-        state: PomodoroState;
-        timeOffset: number;
-      };
-    };
 
 export function Session() {
   const location = useLocation();
@@ -37,6 +26,8 @@ export function Session() {
   const [sessionState, setSessionState] = useState<SessionState>();
 
   const [socket, setSocket] = useContext(SocketContext)
+
+  console.log(socket)
 
 
   if (!(displayName && sessionName)) {
@@ -78,7 +69,7 @@ export function Session() {
       return (
         <div className="h-full flex-1 justify-evenly" id="page-wrap">
           <div className="flex-1 justify-center">
-            <PomodoroTimer {...sessionState?.clock}></PomodoroTimer>
+            <PomodoroTimer clock={sessionState?.clock}></PomodoroTimer>
           </div>
         </div>
       );

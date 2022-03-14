@@ -4,15 +4,10 @@ import { SessionSocket } from "SessionSocket";
 import { PomodoroState } from "utils";
 import { SocketContext } from "utils/SocketContext";
 import { Clock } from "./Clock";
+import { ClockState } from "utils/ClockState";
 
-type PomodoroTimerProps = {
-  timestamp: number;
-  timeLeft: number;
-  state: PomodoroState;
-  timeOffset: number;
-};
 
-export function PomodoroTimer({timestamp, timeLeft, timeOffset, state}: PomodoroTimerProps) {
+export function PomodoroTimer({clock} : {clock : ClockState}) {
   const [socket, setSocket] = useContext(SocketContext)
 
   function togglePause(state : PomodoroState) {
@@ -30,7 +25,7 @@ export function PomodoroTimer({timestamp, timeLeft, timeOffset, state}: Pomodoro
 
   return (
     <div className="fullscreen_flex">
-      <Clock onPress={togglePause} onFinished={stopTimer} {...{timestamp, timeLeft, timeOffset, state}}></Clock>
+      <Clock onPress={togglePause} onFinished={stopTimer} clock={clock}></Clock>
     </div>
   );
 }
