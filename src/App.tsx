@@ -9,14 +9,19 @@ function App() {
   return (
     <CookiesProvider>
       <ThemeProvider>
-        <SocketProvider>
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/session/:sessionName" element={<Session />} />
+              <Route
+                path="/session/:sessionName"
+                element={
+                  <SocketProvider>
+                    <Session />
+                  </SocketProvider>
+                }
+              />
             </Routes>
           </BrowserRouter>
-        </SocketProvider>
       </ThemeProvider>
     </CookiesProvider>
   );
