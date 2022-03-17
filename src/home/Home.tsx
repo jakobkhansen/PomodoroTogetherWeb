@@ -8,7 +8,7 @@ function Home() {
   document.title = "Pomodoro Together";
 
   return (
-    <div className="h-screen bg-white dark:bg-slate-900 duration-300">
+    <div className="h-full overflow-y-scroll bg-white dark:bg-slate-900 duration-300">
       <div className="m-auto text-center max-w-4xl">
         <h1 className="m-auto text-4xl pt-5 mb-5 dark:text-white">
           Pomodoro Together
