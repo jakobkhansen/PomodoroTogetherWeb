@@ -3,6 +3,8 @@ import { getDateSeconds, PomodoroState, secondsToTimeString } from "utils";
 import { ClockState } from "utils/ClockState";
 import { runningTimerStates } from "./PomodoroTimer";
 
+// Handles displaying and updating timer value
+// and timer hotkeys
 export function Clock({
   clock,
   onPress,
@@ -23,6 +25,23 @@ export function Clock({
       return () => clearInterval(id);
     }
   }, [clock.timestamp, clock.timeLeft, clock.state]);
+
+  // Hotkeys
+  useEffect(() => {
+    function keyHandler(event : KeyboardEvent) {
+      if (event.code === "Space") {
+        onPress(clock.state);
+      }
+
+    }
+    document.addEventListener("keydown", keyHandler)
+
+    function cleanup() {
+      document.removeEventListener("keydown", keyHandler)
+    }
+
+    return cleanup
+  })
 
   function secondsToDisplay(): number {
     const display = Math.floor(
