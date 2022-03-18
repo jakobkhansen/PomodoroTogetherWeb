@@ -1,4 +1,4 @@
-import header from "resources/5834.png";
+import header from "resources/home.png";
 import { ThemeProvider } from "utils/ThemeContext";
 import DarkModeToggle from "./DarkModeToggle";
 import { HomeInputForm } from "./HomeInputForm";
@@ -13,7 +13,7 @@ function Home() {
         <h1 className="m-auto text-4xl pt-5 mb-5 dark:text-white">
           Pomodoro Together
         </h1>
-        <img src={header} className="w-4/5 m-auto" />
+        <img src={header} className="w-4/5 m-auto" alt="Pomodoro Together Home"/>
         <HomeInputForm />
         <DarkModeToggle />
         <Socials />
