@@ -1,4 +1,5 @@
 import { defaultTimeOptions } from "utils";
+import { CustomTimePickerOption } from "./CustomTimePickerOption";
 import { TimePickerOption } from "./TimePickerOption";
 
 export function TimePicker() {
@@ -9,6 +10,7 @@ export function TimePicker() {
         {defaultTimeOptions.map((secs, i) => {
           return <TimePickerOption key={i} seconds={secs} />;
         })}
+        <CustomTimePickerOption />
       </div>
     </div>
   );

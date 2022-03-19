@@ -23,15 +23,11 @@ export enum PomodoroState {
 
 export const defaultTimeOptions: number[] = [
   60 * 60,
-  55 * 60,
   50 * 60,
   45 * 60,
-  40 * 60,
   30 * 60,
   25 * 60,
-  20 * 60,
   15 * 60,
   10 * 60,
   5 * 60,
-  1 * 60,
 ];
