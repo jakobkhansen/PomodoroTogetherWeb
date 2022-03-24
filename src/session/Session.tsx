@@ -56,6 +56,14 @@ export function Session() {
     };
   }, [socket]);
 
+  useEffect(() => {
+    device.preventSleeping();
+
+    return function () {
+      device.allowSleeping();
+    };
+  });
+
   function renderIfReady(): React.ReactElement {
     if (sessionState?.clock.state == PomodoroState.DONE) {
       return (
