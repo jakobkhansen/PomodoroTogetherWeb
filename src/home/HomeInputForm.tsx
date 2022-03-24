@@ -2,17 +2,21 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { Field, Form } from "react-final-form";
 import { useLocation, useNavigate } from "react-router-dom";
+import useStayAwake from "use-stay-awake";
 
 type SubmissionParams = { displayName: string; sessionName: string };
 
 export function HomeInputForm() {
   const navigate = useNavigate();
   const [cookies, setCookies] = useCookies(["displayName", "sessionName"]);
+  const device = useStayAwake();
 
   function onSubmit({ displayName, sessionName }: SubmissionParams) {
     setCookies("displayName", displayName, {secure: true, path: "/", sameSite: 'none'});
     navigate(`/session/${sessionName}`);
+    device.preventSleeping();
   }
+
 
   return (
     <Form
