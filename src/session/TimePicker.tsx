@@ -10,7 +10,6 @@ export function TimePicker() {
         {defaultTimeOptions.map((secs, i) => {
           return <TimePickerOption key={i} seconds={secs} />;
         })}
-        // <CustomTimePickerOption />
       </div>
     </div>
   );
