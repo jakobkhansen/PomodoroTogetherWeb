@@ -5,24 +5,26 @@ import { PomodoroState } from "utils";
 import { SocketContext } from "utils/SocketContext";
 import { Clock } from "./Clock";
 import { ClockState } from "utils/ClockState";
+import useSound from "use-sound";
+import kalimba from "../resources/kalimba.mp3";
 
+export function PomodoroTimer({ clock }: { clock: ClockState }) {
+  const [socket, setSocket] = useContext(SocketContext);
+  const [playSound] = useSound(kalimba);
 
-export function PomodoroTimer({clock} : {clock : ClockState}) {
-  const [socket, setSocket] = useContext(SocketContext)
-
-  function togglePause(state : PomodoroState) {
+  function togglePause(state: PomodoroState) {
     if (runningTimerStates.includes(state)) {
-      console.log(socket)
-      socket?.sendPause()
-    } else { 
-      socket?.sendUnpause()
+      console.log(socket);
+      socket?.sendPause();
+    } else {
+      socket?.sendUnpause();
     }
   }
 
   function stopTimer() {
-    socket?.sendStop()
+    playSound();
+    socket?.sendStop();
   }
-
 
   return (
     <div className="fullscreen_flex">

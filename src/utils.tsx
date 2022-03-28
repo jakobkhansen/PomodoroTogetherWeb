@@ -27,7 +27,7 @@ export const defaultTimeOptions: number[] = [
   45 * 60,
   30 * 60,
   25 * 60,
-  15 * 60,
   10 * 60,
   5 * 60,
+  1 * 60
 ];
