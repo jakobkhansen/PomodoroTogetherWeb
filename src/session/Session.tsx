@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useStayAwake from "use-stay-awake";
-import { getDateSeconds, PomodoroState } from "utils";
+import { cookieAge, getDateSeconds, PomodoroState } from "utils";
 import { SessionState } from "utils/SessionState";
 import { SocketContext } from "utils/SocketContext";
 import { PomodoroTimer } from "./PomodoroTimer";
@@ -20,6 +20,7 @@ export function Session() {
     secure: true,
     path: "/",
     sameSite: "none",
+    maxAge: cookieAge
   });
 
   const displayName = cookie.displayName;

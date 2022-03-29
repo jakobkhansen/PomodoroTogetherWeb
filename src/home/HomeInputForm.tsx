@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { Field, Form } from "react-final-form";
 import { useLocation, useNavigate } from "react-router-dom";
+import { cookieAge } from "utils";
 
 type SubmissionParams = { displayName: string; sessionName: string };
 
@@ -10,7 +11,12 @@ export function HomeInputForm() {
   const [cookies, setCookies] = useCookies(["displayName", "sessionName"]);
 
   function onSubmit({ displayName, sessionName }: SubmissionParams) {
-    setCookies("displayName", displayName, {secure: true, path: "/", sameSite: 'none'});
+    setCookies("displayName", displayName, {
+      secure: true,
+      path: "/",
+      sameSite: "none",
+      maxAge: cookieAge,
+    });
     navigate(`/session/${sessionName}`);
   }
 

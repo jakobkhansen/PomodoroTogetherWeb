@@ -31,3 +31,5 @@ export const defaultTimeOptions: number[] = [
   5 * 60,
   1 * 60
 ];
+
+export const cookieAge = 365 * 24 * 60 * 60
