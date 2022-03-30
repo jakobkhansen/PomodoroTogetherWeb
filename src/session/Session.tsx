@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import useStayAwake from "use-stay-awake";
 import { cookieAge, getDateSeconds, PomodoroState } from "utils";
 import { SessionState } from "utils/SessionState";
 import { SocketContext } from "utils/SocketContext";
@@ -13,7 +12,6 @@ export function Session() {
   const location = useLocation();
   const navigate = useNavigate();
   const [cookie, setCookie] = useCookies(["displayName", "sessionName"]);
-  const device = useStayAwake();
 
   const sessionName = useParams().sessionName || "";
   setCookie("sessionName", sessionName, {
@@ -56,14 +54,6 @@ export function Session() {
       socket?.sendLeave();
     };
   }, [socket]);
-
-  useEffect(() => {
-    device.preventSleeping();
-
-    return function () {
-      device.allowSleeping();
-    };
-  });
 
   function renderIfReady(): React.ReactElement {
     if (sessionState?.clock.state == PomodoroState.DONE) {
