@@ -1,66 +1,51 @@
-import { slide as Menu } from "react-burger-menu";
+import { Box, Button, Drawer, Tab, Tabs } from "@mui/material";
+import React, { ReactNode, useState } from "react";
+import { HamburgerButton } from "./HamburgerButton";
+import { MenuIcon } from "@heroicons/react/solid";
 
-var styles = {
-  bmBurgerButton: {
-    position: "fixed",
-    width: "36px",
-    height: "30px",
-    right: "36px",
-    top: "36px",
-  },
-  bmBurgerBars: {
-    background: "#373a47",
-  },
-  bmBurgerBarsHover: {
-    background: "#a90000",
-  },
-  bmCrossButton: {
-    height: "24px",
-    width: "24px",
-  },
-  bmCross: {
-    background: "#bdc3c7",
-  },
-  bmMenuWrap: {
-    position: "fixed",
-    height: "100%",
-  },
-  bmMenu: {
-    background: "#373a47",
-    padding: "2.5em 1.5em 0",
-    fontSize: "1.15em",
-  },
-  bmMorphShape: {
-    fill: "#373a47",
-  },
-  bmItemList: {
-    color: "#b8b7ad",
-    padding: "0.8em",
-    margin:"auto"
-  },
-  bmItem: {
-    display: "flex",
-  },
-  bmOverlay: {
-    background: "rgba(0, 0, 0, 0)",
-  },
-};
+function a11yProps(index : number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
 
 export function Sidebar({ users }: { users: string[] }) {
+  const [visible, setVisible] = useState(false);
   return (
-    <div>
-      <Menu
-        right
-        itemListElement="div"
-        styles={styles}
-        outerContainerId={"outer-container"}
-        pageWrapId={"page-wrap"}
+    <>
+      <MenuIcon
+        className="absolute w-16 h-16 right-5 top-5"
+        onClick={() => setVisible(true)}
+      />
+      <Drawer
+        open={visible}
+        anchor="right"
+        hideBackdrop={false}
+        BackdropProps={{
+          invisible: true,
+        }}
+        onClose={() => setVisible(false)}
       >
-        <h1 className="text-xl text-white">Users in session:</h1>
-        {users.map((user, i) => (
-          <div key={i} className="text-md">{user}</div>
-        ))}
-      </Menu>
-    </div>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs aria-label="basic tabs example">
+            <Tab label="Item One" {...a11yProps(0)}/>
+            <Tab label="Item Two" {...a11yProps(1)}/>
+            <Tab label="Item Three" {...a11yProps(2)}/>
+          </Tabs>
+        </Box>
+        <TabPanel index={0}>Item One</TabPanel>
+        <TabPanel index={1}>Item Two</TabPanel>
+        <TabPanel index={2}>Item Three</TabPanel>
+      </Drawer>
+    </>
   );
 }
+
+type TabPanelProps = {
+  index: number;
+};
+
+const TabPanel: React.FC<TabPanelProps> = ({ children, index }) => {
+  return <>{children}</>;
+};
