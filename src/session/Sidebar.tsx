@@ -1,6 +1,5 @@
 import { Box, Button, Drawer, Tab, Tabs } from "@mui/material";
 import React, { ReactNode, useState } from "react";
-import { HamburgerButton } from "./HamburgerButton";
 import { MenuIcon } from "@heroicons/react/solid";
 
 function a11yProps(index : number) {
