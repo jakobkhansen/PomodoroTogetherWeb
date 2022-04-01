@@ -34,6 +34,10 @@ export class SessionSocket {
     this.socket.emit("session stop");
   }
 
+  public sendIncrement(seconds : number) {
+    this.socket.emit("session increment", seconds);
+  }
+
   public sendLeave() {
     this.socket.emit("session leave")
   }

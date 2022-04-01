@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { cookieAge, getDateSeconds, PomodoroState } from "utils";
+import { ClockState } from "utils/ClockState";
 import { SessionState } from "utils/SessionState";
 import { SocketContext } from "utils/SocketContext";
 import { PomodoroTimer } from "./PomodoroTimer";
@@ -22,7 +23,7 @@ export function Session() {
     secure: true,
     path: "/",
     sameSite: "none",
-    maxAge: cookieAge
+    maxAge: cookieAge,
   });
 
   const displayName = cookie.displayName;
@@ -47,10 +48,12 @@ export function Session() {
     socket?.on("session update", (sessionState) => {
       setSessionState({
         ...sessionState,
-        clock: {
-          ...sessionState.clock,
-          timeOffset: getDateSeconds() - sessionState.clock.timestamp,
-        },
+        clock: new ClockState(
+          sessionState.clock.timestamp,
+          sessionState.clock.timeLeft,
+          sessionState.clock.state,
+          getDateSeconds() - sessionState.clock.timestamp
+        ),
       });
     });
 
@@ -89,9 +92,15 @@ export function Session() {
   return (
     <div id="outer-container" className="dark:bg-slate-900 duration-300">
       <Sidebar>
-        <TabPanel key={0} index={0}><UserList users={sessionState.users} /></TabPanel>
-        <TabPanel key={1} index={1}><SessionSettings /></TabPanel>
-        <TabPanel key={2} index={2}><UserSettings /></TabPanel>
+        <TabPanel key={0} index={0}>
+          <UserList users={sessionState.users} />
+        </TabPanel>
+        <TabPanel key={1} index={1}>
+          <SessionSettings running={true} />
+        </TabPanel>
+        <TabPanel key={2} index={2}>
+          <UserSettings />
+        </TabPanel>
       </Sidebar>
       {renderIfReady()}
     </div>

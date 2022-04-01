@@ -4,15 +4,22 @@ import { useNavigate } from "react-router-dom";
 import { SocketContext } from "utils/SocketContext";
 
 type SessionSettingsProps = {
-  stopTimer: () => void | void;
+  running : boolean
 };
 
-export function SessionSettings() {
+export function SessionSettings({running} : SessionSettingsProps) {
+
   const [socket] = useContext(SocketContext);
   const navigate = useNavigate();
 
   function stopTimer() {
     socket?.sendStop();
+  }
+  function incrementTimer() {
+    socket?.sendIncrement(60);
+  }
+  function decrementTimer() {
+    socket?.sendIncrement(-60);
   }
 
   function leaveSession() {
@@ -26,6 +33,12 @@ export function SessionSettings() {
       </ListItem>
       <ListItem alignItems="center">
         <Button onClick={leaveSession}>Leave session</Button>
+      </ListItem>
+      <ListItem>
+        <div className="m-auto">
+        <Button variant="outlined" onClick={incrementTimer}>+1 min</Button>
+        <Button variant="outlined" onClick={decrementTimer}>-1 min</Button>
+        </div>
       </ListItem>
     </List>
   );

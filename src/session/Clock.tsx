@@ -28,36 +28,31 @@ export function Clock({
 
   // Hotkeys
   useEffect(() => {
-    function keyHandler(event : KeyboardEvent) {
+    function keyHandler(event: KeyboardEvent) {
       if (event.code === "Space") {
         onPress(clock.state);
       }
-
     }
-    document.addEventListener("keydown", keyHandler)
+    document.addEventListener("keydown", keyHandler);
 
     function cleanup() {
-      document.removeEventListener("keydown", keyHandler)
+      document.removeEventListener("keydown", keyHandler);
     }
 
-    return cleanup
-  })
+    return cleanup;
+  });
 
-  function secondsToDisplay(): number {
-    const display = Math.floor(
-      clock.timeLeft - (getDateSeconds() - clock.timeOffset - clock.timestamp)
-    );
-
-    if (display <= 0) {
+  function displayClock(): string {
+    if (clock.done()) {
       onFinished();
     }
-    return display;
+    return clock.secondsToDisplay();
   }
 
   if (runningTimerStates.includes(clock.state)) {
-    document.title = "Pomodoro: ▶️ " + secondsToTimeString(secondsToDisplay());
+    document.title = "Pomodoro: ▶️ " +  displayClock();
   } else {
-    document.title = "Pomodoro: ⏸️ " + secondsToTimeString(secondsToDisplay());
+    document.title = "Pomodoro: ⏸️ " +  displayClock();
   }
 
   return (
@@ -69,7 +64,7 @@ export function Clock({
             onPress(clock.state);
           }}
         >
-          {secondsToTimeString(secondsToDisplay())}
+          {displayClock()}
         </div>
       )}
       {!runningTimerStates.includes(clock.state) && (
@@ -79,7 +74,7 @@ export function Clock({
             onPress(clock.state);
           }}
         >
-          {secondsToTimeString(secondsToDisplay())}
+          {displayClock()}
         </div>
       )}
     </div>
