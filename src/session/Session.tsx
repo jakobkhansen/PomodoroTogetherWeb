@@ -61,7 +61,7 @@ export function Session() {
   function renderIfReady(): React.ReactElement {
     if (sessionState?.clock.state == PomodoroState.DONE) {
       return (
-        <div id="page-wrap" w-full>
+        <div id="page-wrap">
           <TimePicker />;
         </div>
       );
@@ -88,8 +88,8 @@ export function Session() {
   return (
     <div id="outer-container" className="dark:bg-slate-900 duration-300">
       <Sidebar>
-        <TabPanel index={0}><UserList users={sessionState.users} /></TabPanel>
-        <TabPanel index={1}><SessionSettings /></TabPanel>
+        <TabPanel key={0} index={0}><UserList users={sessionState.users} /></TabPanel>
+        <TabPanel key={1} index={1}><SessionSettings /></TabPanel>
       </Sidebar>
       {renderIfReady()}
     </div>

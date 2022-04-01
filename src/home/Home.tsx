@@ -1,5 +1,5 @@
 import header from "resources/home.png";
-import { ThemeProvider } from "utils/ThemeContext";
+import { MyThemeProvider } from "utils/ThemeContext";
 import DarkModeToggle from "./DarkModeToggle";
 import { HomeInputForm } from "./HomeInputForm";
 import { Socials } from "./Socials";

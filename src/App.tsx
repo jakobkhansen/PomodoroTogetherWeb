@@ -2,13 +2,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "home/Home";
 import { Session } from "session/Session";
 import { CookiesProvider } from "react-cookie";
-import { ThemeProvider } from "utils/ThemeContext";
+import { MyThemeProvider } from "utils/ThemeContext";
 import { SocketProvider } from "utils/SocketContext";
 
 function App() {
   return (
     <CookiesProvider>
-      <ThemeProvider>
+      <MyThemeProvider>
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -22,7 +22,7 @@ function App() {
               />
             </Routes>
           </BrowserRouter>
-      </ThemeProvider>
+      </MyThemeProvider>
     </CookiesProvider>
   );
 }

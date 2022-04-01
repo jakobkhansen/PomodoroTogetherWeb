@@ -1,7 +1,10 @@
 import { Box, Button, Drawer, Tab, Tabs } from "@mui/material";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useContext, useState } from "react";
 import { MenuIcon } from "@heroicons/react/solid";
 import { TabPanel, TabPanelProps } from "./TabPanel";
+import { ThemeContext } from "utils/ThemeContext";
+import { useTheme } from "@emotion/react";
+import { Theme } from "@mui/system";
 
 function a11yProps(index: number) {
   return {
@@ -11,18 +14,24 @@ function a11yProps(index: number) {
 }
 
 type SidebarProps = {
-  children: React.ReactElement<TabPanelProps>[]
-}
+  children: React.ReactElement<TabPanelProps>[];
+};
 
-export const Sidebar : React.FC<SidebarProps> = ({ children }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ children }) => {
   const [visible, setVisible] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+
+  const theme = useTheme()
+  console.log(theme)
+
   return (
     <>
-      <MenuIcon
-        className="absolute w-16 h-16 right-5 top-5 fill-slate-400"
-        onClick={() => setVisible(true)}
-      />
+      <button onClick={() => setVisible(true)}>
+        <MenuIcon
+          className="absolute w-16 h-16 right-5 top-5 fill-slate-400"
+          onClick={() => setVisible(true)}
+        />
+      </button>
       <Drawer
         open={visible}
         anchor="right"
@@ -34,6 +43,10 @@ export const Sidebar : React.FC<SidebarProps> = ({ children }) => {
       >
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
+            sx={{
+              bgcolor: 'background.default',
+              color: 'text-primary'
+            }}
             value={activeTab}
             onChange={(event, value) => setActiveTab(value)}
           >

@@ -1,3 +1,4 @@
+import { createTheme, Theme, ThemeProvider } from "@mui/material";
 import React, { createContext } from "react";
 import { useCookies } from "react-cookie";
 
@@ -5,7 +6,6 @@ const getInitialTheme = () => {
   if (typeof window !== "undefined" && window.localStorage) {
     const storedPrefs = window.localStorage.getItem("color-theme");
     if (typeof storedPrefs === "string") {
-      console.log("prefs");
       return storedPrefs;
     }
 
@@ -22,8 +22,15 @@ type IThemeContext = [string, React.Dispatch<React.SetStateAction<string>>];
 
 export const ThemeContext = createContext<IThemeContext>(["light", () => null]);
 
-export const ThemeProvider = ({ initialTheme, children }: any) => {
+export const MyThemeProvider = ({ initialTheme, children }: any) => {
   const [theme, setTheme] = React.useState<string>(getInitialTheme);
+  const [muiTheme, setMuiTheme] = React.useState<Theme>(
+    createTheme({
+      palette: {
+        mode: theme ? "dark" : "light",
+      },
+    })
+  );
 
   const rawSetTheme = (rawTheme: string) => {
     const root = window.document.documentElement;
@@ -33,6 +40,14 @@ export const ThemeProvider = ({ initialTheme, children }: any) => {
     root.classList.add(rawTheme);
 
     localStorage.setItem("color-theme", rawTheme);
+
+    setMuiTheme(
+      createTheme({
+        palette: {
+          mode: isDark ? "dark" : "light",
+        },
+      })
+    );
   };
 
   if (initialTheme) {
@@ -41,11 +56,13 @@ export const ThemeProvider = ({ initialTheme, children }: any) => {
 
   React.useEffect(() => {
     rawSetTheme(theme);
+    console.log("creating theme ")
+    console.log(theme ? "dark" : "light")
   }, [theme]);
 
   return (
     <ThemeContext.Provider value={[theme, setTheme]}>
-      {children}
+      <ThemeProvider theme={muiTheme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   );
 };
