@@ -25,16 +25,17 @@ export function SessionSettings({running} : SessionSettingsProps) {
   function leaveSession() {
     navigate("/");
   }
+  console.log(running)
 
   return (
     <List>
-      <ListItem alignItems="center">
+      <ListItem sx={{display: !running ? "none" : "inherit"}}>
         <Button onClick={stopTimer}>Stop timer</Button>
       </ListItem>
-      <ListItem alignItems="center">
+      <ListItem>
         <Button onClick={leaveSession}>Leave session</Button>
       </ListItem>
-      <ListItem>
+      <ListItem sx={{display: !running ? "none" : "inherit"}}>
         <div className="m-auto">
         <Button variant="outlined" onClick={incrementTimer}>+1 min</Button>
         <Button variant="outlined" onClick={decrementTimer}>-1 min</Button>

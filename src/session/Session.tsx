@@ -96,7 +96,7 @@ export function Session() {
           <UserList users={sessionState.users} />
         </TabPanel>
         <TabPanel key={1} index={1}>
-          <SessionSettings running={true} />
+          <SessionSettings running={!sessionState.clock.done()} />
         </TabPanel>
         <TabPanel key={2} index={2}>
           <UserSettings />
