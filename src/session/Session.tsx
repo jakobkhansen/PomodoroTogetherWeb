@@ -5,7 +5,10 @@ import { cookieAge, getDateSeconds, PomodoroState } from "utils";
 import { SessionState } from "utils/SessionState";
 import { SocketContext } from "utils/SocketContext";
 import { PomodoroTimer } from "./PomodoroTimer";
-import { Sidebar } from "./Sidebar";
+import { SessionSettings } from "./sidebar/SessionSettings";
+import { Sidebar } from "./sidebar/Sidebar";
+import { TabPanel } from "./sidebar/TabPanel";
+import { UserList } from "./sidebar/UserList";
 import { TimePicker } from "./TimePicker";
 
 export function Session() {
@@ -84,7 +87,10 @@ export function Session() {
 
   return (
     <div id="outer-container" className="dark:bg-slate-900 duration-300">
-      <Sidebar users={sessionState.users} />
+      <Sidebar>
+        <TabPanel index={0}><UserList users={sessionState.users} /></TabPanel>
+        <TabPanel index={1}><SessionSettings /></TabPanel>
+      </Sidebar>
       {renderIfReady()}
     </div>
   );
