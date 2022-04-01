@@ -9,9 +9,9 @@ export class ClockState {
   ) {}
 
   public secondsLeft() : number {
-    return Math.floor(
+    return Math.max(Math.floor(
       this.timeLeft - (getDateSeconds() - this.timeOffset - this.timestamp)
-    );
+    ), 0);
   }
 
   public done() {

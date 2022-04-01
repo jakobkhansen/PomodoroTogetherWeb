@@ -45,6 +45,7 @@ export function Clock({
   function displayClock(): string {
     if (clock.done()) {
       onFinished();
+
     }
     return clock.secondsToDisplay();
   }
