@@ -21,9 +21,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ children }) => {
   const [visible, setVisible] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
 
-  const theme = useTheme()
-  console.log(theme)
-
   return (
     <>
       <button onClick={() => setVisible(true)}>

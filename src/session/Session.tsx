@@ -9,6 +9,7 @@ import { SessionSettings } from "./sidebar/SessionSettings";
 import { Sidebar } from "./sidebar/Sidebar";
 import { TabPanel } from "./sidebar/TabPanel";
 import { UserList } from "./sidebar/UserList";
+import { UserSettings } from "./sidebar/UserSettings";
 import { TimePicker } from "./TimePicker";
 
 export function Session() {
@@ -90,6 +91,7 @@ export function Session() {
       <Sidebar>
         <TabPanel key={0} index={0}><UserList users={sessionState.users} /></TabPanel>
         <TabPanel key={1} index={1}><SessionSettings /></TabPanel>
+        <TabPanel key={2} index={2}><UserSettings /></TabPanel>
       </Sidebar>
       {renderIfReady()}
     </div>

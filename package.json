@@ -21,7 +21,6 @@
     "framer-motion": "^6.2.8",
     "postcss": "^8.4.7",
     "react": "latest",
-    "react-burger-menu": "^3.0.6",
     "react-cookie": "^4.1.1",
     "react-dark-mode-toggle": "^0.2.0",
     "react-dom": "latest",
