@@ -1,10 +1,8 @@
 # Pomodoro Together Web frontend
 
-https://pomodorotogether.dev/
+~~https://pomodorotogether.dev/~~ App is down because Heroku started charging for free tier, and I don't care about it enough to migrate
 
 A social pomodoro app for productivity. Create Pomodoro sessions which friends can join to use as a synchronized work timer. This app is focused on minimalism and robustness.
-
-This is a WIP app, I will continue to develop this app when I have the time/motivation. It's currently an MVP with most functionality implemented, but not very styled or customizable.
 
 ### Feature list
 * [x] Connect to a room with synchronized pomodoro timer
